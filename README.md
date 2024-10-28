@@ -24,12 +24,6 @@ venv\Scripts\activate     # Windows
 pip install biopython bcbio-gff
 ```
 
-## File Structure
-
-- `main.py`: Core pipeline implementation
-- `mock_bprom.py`: Mock BPROM predictor for testing
-- `test_data.py`: Creates test genome and annotation files
-
 ## Usage
 
 1. Generate test data:
@@ -41,6 +35,12 @@ python test_data.py
 ```bash
 python main.py
 ```
+
+## File Structure
+
+- `main.py`: Core pipeline implementation
+- `mock_bprom.py`: Mock BPROM predictor for testing
+- `test_data.py`: Creates test genome and annotation files
 
 ## Implementation Details
 

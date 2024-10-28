@@ -3,6 +3,7 @@ from Bio import SeqFeature
 from BCBio import GFF
 import subprocess
 import json
+import os
 
 # Parse genome - use test files
 genome = SeqIO.read("test_genome.fasta", "fasta")
@@ -13,7 +14,7 @@ with open("test_annotations.gff", "r") as handle:
 
 def extract_upstream(genome, gene, upstream_length=2000):
     """Extract upstream region with better boundary handling and strand consideration"""
-    if gene.strand == 1:  # Forward strand
+    if gene.location.strand == 1:  # Forward strand
         start = max(0, gene.location.start - upstream_length)
         end = gene.location.start
         sequence = genome[start:end]
@@ -69,7 +70,7 @@ def test_workflow():
                 gene_info.append({
                     "gene_id": feature.qualifiers.get("gene_id", ["Unknown"])[0],
                     "name": feature.qualifiers.get("gene", ["Unknown"])[0],
-                    "strand": feature.strand,
+                    "strand": feature.location.strand,
                     "position": (feature.location.start, feature.location.end)
                 })
     
@@ -98,7 +99,9 @@ def run_bprom(sequence):
     with open("temp.fa", "w") as f:
         f.write(f">seq\n{sequence}")
     
-    result = subprocess.run(["bprom", "temp.fa"], capture_output=True, text=True)
+    # Use full path to mock_bprom.py
+    script_path = os.path.join(os.getcwd(), "mock_bprom.py")
+    result = subprocess.run([script_path, "temp.fa"], capture_output=True, text=True)
     return parse_bprom_output(result.stdout)
 
 if __name__ == "__main__":

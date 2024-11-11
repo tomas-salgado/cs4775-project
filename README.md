@@ -10,6 +10,10 @@ This pipeline extracts upstream regions from annotated genes and predicts promot
 - -10 box
 - Transcription Start Site (TSS)
 
+## Sources
+https://www.sciencedirect.com/science/article/pii/S1055790311001990?via%3Dihub : Provides generalized probabilities for the GC HMM
+
+
 ## Installation
 
 1. Create and activate a virtual environment:
